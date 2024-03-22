@@ -32,7 +32,13 @@ var health = 100;  // health van speler
  */
 var beweegAlles = function() {
   // speler
-
+    if (keyIsDown(65)) {
+      spelerX = spelerX -1;
+    }
+    if (keyIsDown(68)) {
+      spelerX = spelerX +1;
+    }
+    
   // vijand
 
   // kogel
@@ -57,7 +63,8 @@ var verwerkBotsing = function() {
  */
 var tekenAlles = function() {
   // achtergrond
-
+  fill("green");
+  rect(0,0,1280,720);
   // vijand
 
   // kogel
