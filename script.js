@@ -25,11 +25,12 @@ var spelStatus = UITLEG;
 var spelerX = 600; // x-positie van speler
 var spelerY = 600; // y-positie van speler
 
-
 var vijandX = 600; // x-positie van de vijand
 var vijandY = 600; // y-positie van de vijand
-var snelheid = 2;
+var snelheid = 2;  // snelhied van de speler en vijand
 
+var img; // plaatjes
+var img2; // plaatjes
 /* ********************************************* */
 /* functies die je gebruikt in je game           */
 /* ********************************************* */
@@ -93,14 +94,12 @@ var tekenAlles = function() {
   rect(vijandX - 25, vijandY - 25, 50, 50);
   fill("black");
   ellipse(vijandX, vijandY, 10, 10);
+  image(img2,vijandX-25 ,vijandY-25, 50, 50);
   // kogel
 
   // speler
-  fill("white");
-  rect(spelerX - 25, spelerY - 25, 50, 50);
-  fill("black");
-  ellipse(spelerX, spelerY, 10, 10);
-
+  image(img,spelerX-25 ,spelerY-25, 50, 50);
+  
   // punten en health
 
 };
@@ -130,7 +129,15 @@ function setup() {
   // Kleur de achtergrond blauw, zodat je het kunt zien
   background('blue');
 }
-
+/**
+ * preload
+ * deze functie wordt 1keer uitgevoerd voor de setup
+ * hier worden de plaatjes geladen
+ */
+function preload(){
+  img = loadImage('spiderman.png');
+  img2 = loadImage('mortisbrawlstars.png');
+}
 /**
  * draw
  * de code in deze functie wordt 50 keer per seconde
