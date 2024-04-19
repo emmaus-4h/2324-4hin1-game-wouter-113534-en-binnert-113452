@@ -33,6 +33,10 @@ var snelheid = 2;  // snelhied van de speler en vijand
 
 var img; // plaatjes
 var img2; // plaatjes
+
+var kogelX = 400; // x-positie van de kogel
+var kogelY = 300; // y-positie van de kogel
+var kogelVliegt = false;
 /* ********************************************* */
 /* functies die je gebruikt in je game           */
 /* ********************************************* */
@@ -68,7 +72,18 @@ var beweegAlles = function() {
   if (keyIsDown(DOWN_ARROW)) {
     vijandY = vijandY + snelheid;
   }
-  // kogel
+  //kogel
+ if(kogelVliegt === false && keyIsDown(32)) { //start met schieten
+    kogelVliegt = true;
+   kogelX = spelerX;
+   kogelY = spelerY;
+ }
+  if(kogelVliegt === true) { // kogel vliegt
+    kogelY = kogelY - 3;
+  }
+  if(kogelVliegt === true && kogelY < 0){ // kogel verdwijnt
+    kogelVliegt = false;
+  }
 };
 
 /**
@@ -98,7 +113,8 @@ var tekenAlles = function() {
   ellipse(vijandX, vijandY, 10, 10);
   image(img2,vijandX-25 ,vijandY-25, 50, 50);
   // kogel
-
+  fill("black")
+  ellipse(kogelX, kogelY, 20, 20);
   // speler
   image(img,spelerX-25 ,spelerY-25, 50, 50);
   
