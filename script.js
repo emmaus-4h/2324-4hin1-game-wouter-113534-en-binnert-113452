@@ -22,6 +22,8 @@ const GAMEOVER = 2;
 const UITLEG = 8;
 var spelStatus = UITLEG;
 
+var tekstX = 200; // x-coordinaat van de tekst
+var tekstY = 400; // y-coordinaat van de tekst
 var spelerX = 600; // x-positie van speler
 var spelerY = 600; // y-positie van speler
 
@@ -158,7 +160,7 @@ function draw() {
     console.log("game over");
     textSize(60);
     fill("white");
-    text("game over, druk spatie voor start", 200, 400);
+    text("game over, druk spatie voor start", tekstX, tekstY);
     if (keyIsDown(32)) { //spatie
       spelStatus = UITLEG;
     }
@@ -172,7 +174,7 @@ function draw() {
     fill("green");
     rect(0, 0, 1280, 720);
     fill("white");
-    text("uitleg: doe je ding en druk op enter", 200 ,300);
+    text("uitleg: doe je ding en druk op enter", tekstX ,tekstY);
     if (keyIsDown(13)) { //enter
       spelerX = 400;
       spelStatus = SPELEN;
