@@ -127,7 +127,7 @@ function setup() {
   createCanvas(1280, 720);
 
   // Kleur de achtergrond blauw, zodat je het kunt zien
-  background('blue');
+  background('green');
 }
 /**
  * preload
@@ -154,6 +154,7 @@ function draw() {
   }
   if (spelStatus === GAMEOVER) {
     // teken game-over scherm
+     background('green');
     console.log("game over");
     textSize(60);
     fill("white");
@@ -165,6 +166,7 @@ function draw() {
 
   if (spelStatus === UITLEG) {
     // teken uitleg scherm
+     background('green');
     console.log("uitleg");
     textSize(60);
     fill("green");
