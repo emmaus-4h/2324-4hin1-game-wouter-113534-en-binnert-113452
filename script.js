@@ -172,11 +172,11 @@ function draw() {
   }
   if (spelStatus === GAMEOVER) {
     // teken game-over scherm
-     background('green');
+     background('red');
     console.log("game over");
     textSize(60);
     fill("white");
-    text("game over, druk spatie voor start", tekstX, tekstY);
+    text("GAME OVER, druk spatie voor start", tekstX, tekstY);
     if (keyIsDown(32)) { //spatie
       spelStatus = UITLEG;
     }
@@ -184,10 +184,10 @@ function draw() {
 
   if (spelStatus === UITLEG) {
     // teken uitleg scherm
-     background('green');
+     background('orange');
     console.log("uitleg");
     textSize(60);
-    fill("green");
+    fill("orange");
     rect(0, 0, 1280, 720);
     fill("white");
     text("uitleg: doe je ding en druk op enter", tekstX ,tekstY);
