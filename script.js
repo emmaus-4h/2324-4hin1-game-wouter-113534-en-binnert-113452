@@ -29,7 +29,7 @@ var spelerY = 600; // y-positie van speler
 
 var vijandX = 600; // x-positie van de vijand
 var vijandY = 600; // y-positie van de vijand
-var snelheid = 2;  // snelhied van de speler en vijand
+var snelheid = 2;  // snelheid van de speler en vijand
 
 var img; // plaatjes
 var img2; // plaatjes
@@ -37,6 +37,10 @@ var img2; // plaatjes
 var kogelX = 400; // x-positie van de kogel
 var kogelY = 300; // y-positie van de kogel
 var kogelVliegt = false;
+
+var health = 3;  // gezondheid van de speler
+var punten = 0;  // punten die de speler heeft verzameld
+
 /* ********************************************* */
 /* functies die je gebruikt in je game           */
 /* ********************************************* */
@@ -72,16 +76,17 @@ var beweegAlles = function() {
   if (keyIsDown(DOWN_ARROW)) {
     vijandY = vijandY + snelheid;
   }
-  //kogel
- if(kogelVliegt === false && keyIsDown(32)) { //start met schieten
+
+  // kogel
+  if (kogelVliegt === false && keyIsDown(32)) { // start met schieten
     kogelVliegt = true;
-   kogelX = spelerX;
-   kogelY = spelerY;
- }
-  if(kogelVliegt === true) { // kogel vliegt
+    kogelX = spelerX;
+    kogelY = spelerY;
+  }
+  if (kogelVliegt === true) { // kogel vliegt
     kogelY = kogelY - 3;
   }
-  if(kogelVliegt === true && kogelY < 0){ // kogel verdwijnt
+  if (kogelVliegt === true && kogelY < 0) { // kogel verdwijnt
     kogelVliegt = false;
   }
 };
@@ -93,47 +98,59 @@ var beweegAlles = function() {
  */
 var verwerkBotsing = function() {
   // botsing speler tegen vijand
+  if (spelerX - vijandX < 50 &&
+    spelerX - vijandX > -50 &&
+    spelerY - vijandY < 50 &&
+    spelerY - vijandY > -50) {
+    health -= 1; // gezondheid gaat omlaag bij botsing met vijand
+    vijandX = random(50, width - 50); // verplaats vijand naar een random locatie
+    vijandY = random(50, height - 50);
+  }
 
   // botsing kogel tegen vijand
-
-  // update punten en health
+  if (kogelX - vijandX < 25 &&
+    kogelX - vijandX > -25 &&
+    kogelY - vijandY < 25 &&
+    kogelY - vijandY > -25) {
+    punten += 1; // punten omhoog bij raken van vijand
+    kogelVliegt = false; // kogel stopt met vliegen
+    vijandX = random(50, width - 50); // verplaats vijand naar een random locatie
+    vijandY = random(50, height - 50);
+  }
 };
 
-
-
 var tekenAlles = function() {
-
   // achtergrond
   fill("green");
   rect(0, 0, width, height);
+
   // vijand
   fill("red");
   rect(vijandX - 25, vijandY - 25, 50, 50);
   fill("black");
   ellipse(vijandX, vijandY, 10, 10);
-  image(img2,vijandX-25 ,vijandY-25, 50, 50);
-  // kogel
-  fill("black")
-  ellipse(kogelX, kogelY, 20, 20);
-  // speler
-  image(img,spelerX-25 ,spelerY-25, 50, 50);
-  
-  // punten en health
+  image(img2, vijandX - 25, vijandY - 25, 50, 50);
 
+  // kogel
+  fill("black");
+  ellipse(kogelX, kogelY, 20, 20);
+
+  // speler
+  image(img, spelerX - 25, spelerY - 25, 50, 50);
+
+  // punten en health
+  fill(255, 255, 255);
+  textSize(30);
+  text("Health: " + health, 10, 30);
+  text("Punten: " + punten, 10, 60);  
 };
 
 var checkGameOver = function() {
-  if (spelerX - vijandX < 50 &&
-    spelerX - vijandX > -50 &&
-    spelerY - vijandY < 50 &&
-    spelerY - vijandY > -50) {
-    aantal = aantal + 1
-    console.log("botsing" + aantal);
+  if (health <= 0) {
     return true;
   }
-
   return false;
-}
+};
 
 /**
  * setup
@@ -144,18 +161,20 @@ function setup() {
   // Maak een canvas (rechthoek) waarin je je speelveld kunt tekenen
   createCanvas(1280, 720);
 
-  // Kleur de achtergrond blauw, zodat je het kunt zien
+  // Kleur de achtergrond groen, zodat je het kunt zien
   background('green');
 }
+
 /**
  * preload
- * deze functie wordt 1keer uitgevoerd voor de setup
+ * deze functie wordt 1 keer uitgevoerd voor de setup
  * hier worden de plaatjes geladen
  */
 function preload(){
   img = loadImage('spiderman.png');
   img2 = loadImage('mortisbrawlstars.png');
 }
+
 /**
  * draw
  * de code in deze functie wordt 50 keer per seconde
@@ -172,28 +191,30 @@ function draw() {
   }
   if (spelStatus === GAMEOVER) {
     // teken game-over scherm
-     background('red');
+    background('red');
     console.log("game over");
     textSize(60);
     fill("white");
     text("GAME OVER, druk spatie voor start", tekstX, tekstY);
-    if (keyIsDown(32)) { //spatie
+    if (keyIsDown(32)) { // spatie
       spelStatus = UITLEG;
     }
   }
 
   if (spelStatus === UITLEG) {
     // teken uitleg scherm
-     background('orange');
+    background('orange');
     console.log("uitleg");
     textSize(60);
     fill("orange");
     rect(0, 0, 1280, 720);
     fill("white");
-    text("uitleg: doe je ding en druk op enter", tekstX ,tekstY);
-    if (keyIsDown(13)) { //enter
+    text("uitleg: doe je ding en druk op enter", tekstX, tekstY);
+    if (keyIsDown(13)) { // enter
       spelerX = 400;
+      health = 3; // reset health
+      punten = 0; // reset punten
       spelStatus = SPELEN;
-    };
+    }
   }
 }
