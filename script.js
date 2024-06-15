@@ -33,6 +33,7 @@ var snelheid = 2;  // snelheid van de speler en vijand
 
 var img; // plaatjes
 var img2; // plaatjes
+var achtergrondImg; // achtergrond plaatje
 
 var kogelX = 400; // x-positie van de kogel
 var kogelY = 300; // y-positie van de kogel
@@ -116,13 +117,14 @@ var verwerkBotsing = function() {
     kogelVliegt = false; // kogel stopt met vliegen
     vijandX = random(50, width - 50); // verplaats vijand naar een random locatie
     vijandY = random(50, height - 50);
+    kogelX = -100; // verplaats kogel buiten beeld
+    kogelY = -100;
   }
 };
 
 var tekenAlles = function() {
   // achtergrond
-  fill("green");
-  rect(0, 0, width, height);
+  background(achtergrondImg);
 
   // vijand
   fill("red");
@@ -173,6 +175,7 @@ function setup() {
 function preload(){
   img = loadImage('spiderman.png');
   img2 = loadImage('mortisbrawlstars.png');
+  achtergrondImg = loadImage('achtergrond.png'); // vervang 'achtergrond.png' door je eigen afbeelding
 }
 
 /**
