@@ -34,6 +34,7 @@ var snelheid = 2;  // snelheid van de speler en vijand
 var img; // plaatjes
 var img2; // plaatjes
 var achtergrondImg; // achtergrond plaatje
+var gameOverImg; // game-over plaatje
 
 var kogelX = 400; // x-positie van de kogel
 var kogelY = 300; // y-positie van de kogel
@@ -144,7 +145,7 @@ var tekenAlles = function() {
   fill(255, 255, 255);
   textSize(30);
   text("Health: " + health, 10, 30);
-  text("Punten: " + punten, 10, 60);  
+  text("Punten: " + punten, 10, 60);
 };
 
 var checkGameOver = function() {
@@ -172,10 +173,11 @@ function setup() {
  * deze functie wordt 1 keer uitgevoerd voor de setup
  * hier worden de plaatjes geladen
  */
-function preload(){
+function preload() {
   img = loadImage('spiderman.png');
   img2 = loadImage('mortisbrawlstars.png');
   achtergrondImg = loadImage('achtergrond.png'); // vervang 'achtergrond.png' door je eigen afbeelding
+  gameOverImg = loadImage('gameover.png'); // vervang 'gameover.png' door je eigen game-over afbeelding
 }
 
 /**
@@ -194,10 +196,10 @@ function draw() {
   }
   if (spelStatus === GAMEOVER) {
     // teken game-over scherm
-    background('red');
+    background(gameOverImg);
     console.log("game over");
     textSize(60);
-    fill("white");
+    fill("black");
     text("GAME OVER, druk spatie voor start", tekstX, tekstY);
     if (keyIsDown(32)) { // spatie
       spelStatus = UITLEG;
