@@ -115,11 +115,13 @@ var verwerkBotsing = function() {
     kogelY - vijandY < 25 &&
     kogelY - vijandY > -25) {
     punten += 1; // punten omhoog bij raken van vijand
+    health -= 1; // gezondheid gaat omlaag bij geraakt worden door kogel
     kogelVliegt = false; // kogel stopt met vliegen
     vijandX = random(50, width - 50); // verplaats vijand naar een random locatie
     vijandY = random(50, height - 50);
     kogelX = -100; // verplaats kogel buiten beeld
     kogelY = -100;
+  
   }
 };
 
