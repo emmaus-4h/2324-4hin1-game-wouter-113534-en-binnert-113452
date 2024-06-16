@@ -35,6 +35,7 @@ var img; // plaatjes
 var img2; // plaatjes
 var achtergrondImg; // achtergrond plaatje
 var gameOverImg; // game-over plaatje
+var kogelImg; // kogel afbeelding
 
 var kogelX = 400; // x-positie van de kogel
 var kogelY = 300; // y-positie van de kogel
@@ -137,8 +138,9 @@ var tekenAlles = function() {
   image(img2, vijandX - 25, vijandY - 25, 50, 50);
 
   // kogel
-  fill("black");
-  ellipse(kogelX, kogelY, 20, 20);
+  if (kogelVliegt) {
+    image(kogelImg, kogelX - 10, kogelY - 10, 20, 20); 
+  }
 
   // speler
   image(img, spelerX - 25, spelerY - 25, 50, 50);
@@ -178,8 +180,9 @@ function setup() {
 function preload() {
   img = loadImage('spiderman.png');
   img2 = loadImage('mortisbrawlstars.png');
-  achtergrondImg = loadImage('achtergrond.png'); // vervang 'achtergrond.png' door je eigen afbeelding
-  gameOverImg = loadImage('gameover.png'); // vervang 'gameover.png' door je eigen game-over afbeelding
+  achtergrondImg = loadImage('achtergrond.png'); 
+  gameOverImg = loadImage('gameover.png'); 
+  kogelImg = loadImage('JoeyAK.png'); 
 }
 
 /**
